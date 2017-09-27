@@ -37,7 +37,14 @@ class LinkedList {
   }
 
   insertAt(index, data) {
-    findNode(this, index).data = data;
+    const existingNode = findNode(this, index),
+          previousNode = existingNode.prev,
+          newNode = new Node(data, existingNode.prev, existingNode);
+
+    existingNode.prev = newNode;
+    previousNode
+      ? previousNode.next = newNode
+      : this._head = newNode;
 
     return this;
   }
